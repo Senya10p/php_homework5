@@ -26,7 +26,6 @@
             <img src="/images/<?php echo $img; ?>" height="30%">
             <?php
         }
-        echo $_FILES['myimage']['name'];
         ?>
         <br><br>
         <a href="/index.php">Перейти в форму для загрузки изображений</a>
