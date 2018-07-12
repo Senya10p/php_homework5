@@ -5,14 +5,15 @@ session_start();
 //$password = $_POST['password'];
 include_once (__DIR__ . '/functions.php');
 
-if (null !== getCurrentUser()) {
-    echo 'Здравствуйте ' . getCurrentUser() . '. Вы вошли в фотогалерею!';
     ?>
     <html>
     <head>
         <title>PHP-1</title>
     </head>
     <body>
+   <?php if ( null !== getCurrentUser() ) {
+    echo 'Здравствуйте ' . getCurrentUser() . '. Вы вошли в фотогалерею!';
+    ?>
     <h1>PHP</h1>
     <h2>5 урок</h2>
     <h2>Coockie. Сессии. Авторизация.</h2>
