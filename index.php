@@ -5,15 +5,15 @@ session_start();
 //$password = $_POST['password'];
 include_once (__DIR__ . '/functions.php');
 
-    ?>
+     if ( null !== getCurrentUser() ) {
+
+?>
     <html>
     <head>
         <title>PHP-1</title>
     </head>
     <body>
-   <?php if ( null !== getCurrentUser() ) {
-    echo 'Здравствуйте ' . getCurrentUser() . '. Вы вошли в фотогалерею!';
-    ?>
+    <p>Здравствуйте <?php echo getCurrentUser(); ?>. Вы вошли в фотогалерею!</p>
     <h1>PHP</h1>
     <h2>5 урок</h2>
     <h2>Coockie. Сессии. Авторизация.</h2>
@@ -46,7 +46,7 @@ include_once (__DIR__ . '/functions.php');
     <a href="/gallery.php">Перейти в фотогалерею</a>
     <br><br>
 
-    <a href="/login.php?do=logout">Выход</a>
+    <a href="/logout.php">Выход</a>
     <br><br>
     </body>
     </html>
