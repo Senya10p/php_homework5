@@ -18,7 +18,6 @@
         <?php
         $list = scandir(__DIR__ . '/images');
         $list = array_diff($list, ['.', '..']);
-     //   var_dump($list);
         
        // Выводим в браузер изображения из папки images
         foreach ($list as $img) {

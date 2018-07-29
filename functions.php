@@ -12,31 +12,28 @@ function getUsersList() { //1) Функция, которая возвращае
 }
 
 function existsUser($login) { //2) Функция, которая проверяет - существует ли пользователь с заданным логином
-     if ( in_array( $login, array_column( getUsersList(),'login' ) ) ) {     //in_array - проверяет, есть ли в масииве значение. array_column - возвращает массив из значений одного столбца входного массива.
-        return true;
-    } else {
-        return false;
+    return in_array( $login, array_column( getUsersList(),'login' ) );  //in_array - проверяет, есть ли в масииве значение. array_column - возвращает массив из значений одного столбца входного массива.
+}
+
+function getUser($login) {  //функция, которая возвратит информацию о пользователе с таким логином или null
+    $users = getUsersList();
+    foreach ($users as $user) {             //перебираем логин пользователей
+        if ($login == $user['login']) {
+            return $user;
+        }
     }
 }
 
-function checkPassword($login, $password) {     //3) функция, которая возвращает true тогда, когда существует пользователь с указанным логином и введенный им пароль прошел проверку.
-    if ( true === existsUser($login) ) {        //проверка существует ли пользователь с таким логином
-        $users = getUsersList();
-
-        foreach ($users as $user) {             //перебираем логин пользователей
-            if ( $login == $user['login'] ) {
-
-                if ( password_verify($password, $user['password']) ) {     //если логин пользователя найден проверяем хэш пароля пользователя
-                    return true;
-                }
-            }
+function checkPassword($login, $password) { //3) функция, которая возвращает true тогда, когда существует пользователь с указанным логином и введенный им пароль прошел проверку.
+    if ( true === existsUser($login) ) { //проверка существует ли пользователь с таким логином
+        if ( password_verify( $password, getUser($login)['password'] ) ) { //если логин пользователя найден проверяем хэш пароля пользователя
+            return true;
         }
     }
     return false;
 }
 
-//2 Добавляем функцию getCurrentUser() которая возвращает либо имя вошедшего на сайт пользователя, либо null
-function getCurrentUser() {
+function getCurrentUser() { //2 Добавляем функцию getCurrentUser() которая возвращает либо имя вошедшего на сайт пользователя, либо null
     if ( isset( $_SESSION['username'] ) ) { //Проверяем, есть ли элемент с индексом 'username' в массиве сессии
         if ( existsUser( $_SESSION['username'] ) ) {  //Проверяем существует ли пользователь с заданным логином
             return $_SESSION['username'];

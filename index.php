@@ -3,7 +3,7 @@ session_start();
 
 //$login = $_POST['login'];
 //$password = $_POST['password'];
-include_once (__DIR__ . '/functions.php');
+include_once __DIR__ . '/functions.php';
 
      if ( null !== getCurrentUser() ) {
 
